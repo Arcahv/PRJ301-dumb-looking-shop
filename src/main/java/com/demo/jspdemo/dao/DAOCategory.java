@@ -23,7 +23,8 @@ public class DAOCategory extends DBConnect {
 
     public int addCategory(Category category) {
         int n = 0;
-        String sql = "INSERT INTO [dbo].[Category]\n" + "           ([cateName]\n" + "           ,[status])\n" + "     VALUES (?,?)";
+        String sql = "INSERT INTO Category(cateName, status) VALUES (?,?)";
+        //String sql = "INSERT INTO [dbo].[Category]\n" + "           ([cateName]\n" + "           ,[status])\n" + "     VALUES (?,?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, category.getCateName());
@@ -97,7 +98,8 @@ public class DAOCategory extends DBConnect {
 
     public int removeCategoryWithCascade(String id) {
         int n = 0;
-        String sql = "DELETE FROM [dbo].[Category]\n" + "      WHERE cateId = ?";
+        String sql = "DELETE FROM Category WHERE cateId = ?";
+        //String sql = "DELETE FROM [dbo].[Category]\n" + "      WHERE cateId = ?";
         DAOProduct dao = new DAOProduct();
         Vector<Product> vector = dao.getAllProduct("select * from Product where cateId = " + id);
         for (Product product : vector) {
