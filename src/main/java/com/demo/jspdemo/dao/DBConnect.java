@@ -31,4 +31,7 @@ public class DBConnect {
         }
         return rs;
     }
+    //ArrayList and Vector are both implementations of the List interface in Java. They both use dynamically resizable arrays for their internal data structure. The main difference between them is that Vector is synchronized (thread-safe), while ArrayList is not. This means that only one thread can call methods on a Vector at a time, which can result in a slight overhead in acquiring the lock. If you use an ArrayList, multiple threads can work on it at the same time.
+    //Thread safety is important for building web servers because web servers often handle multiple requests simultaneously. This means that multiple threads may be accessing and modifying shared data structures at the same time. If these data structures are not thread-safe, it can result in race conditions, data corruption, and other issues.
+    //Using a thread-safe data structure like Vector can help prevent these issues by ensuring that only one thread can access the data structure at a time. This can help ensure that the data remains consistent and correct even when accessed by multiple threads simultaneously.
 }

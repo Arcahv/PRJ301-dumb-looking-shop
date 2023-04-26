@@ -27,7 +27,7 @@ public class ControllerCart extends HttpServlet {
             Customer customer = (Customer)request.getSession().getAttribute("customer");
             DAOCart daoCart = new DAOCart();
             Cart cart = new Cart(pid, customer.getCid(), 1);
-            Cart existed = daoCart.isExistCart(cart);
+            Cart existed = daoCart.ifProductInCartExisted(cart);
             if (existed == null) System.out.println("Added: " + daoCart.addNewCart(cart) + " " + cart);
             else {
                 existed.setBuyQuantity(existed.getBuyQuantity() + 1);

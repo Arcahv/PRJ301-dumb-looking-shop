@@ -56,8 +56,8 @@ public class DAOCart extends DBConnect {
         }
     }
 
-    public Cart isExistCart(Cart cart) {
-        // return any cart with the same pid and cid
+    public Cart ifProductInCartExisted(Cart cart) {
+        //Checks for product already in cart, when user add the same product to cart, it will update the quantity instead of creating new entry in cart
         String sql = "select * from Cart where cid = ? and pid = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);

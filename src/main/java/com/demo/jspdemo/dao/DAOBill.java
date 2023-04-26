@@ -1,7 +1,6 @@
 package com.demo.jspdemo.dao;
 
 import com.demo.jspdemo.entity.Bill;
-import com.demo.jspdemo.entity.Cart;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +21,8 @@ public class DAOBill extends DBConnect {
 
     public int addBill(Bill bill) {
         int n = 0;
-        String sql = "INSERT INTO [dbo].[Bill]\n" + "([bid]\n" + ",[dateCreate]\n" + ",[recAddress]\n" + ",[recPhone]\n" + ",[note]\n" + ",[totalMoney]\n" + ",[status]\n" + ",[cid])\n" + "VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "Insert into Bill(bid,dateCreate,recAddress,recPhone,note,totalMoney,status,cid) values(?,?,?,?,?,?,?,?)";
+        //String sql = "INSERT INTO [dbo].[Bill]\n" + "([bid]\n" + ",[dateCreate]\n" + ",[recAddress]\n" + ",[recPhone]\n" + ",[note]\n" + ",[totalMoney]\n" + ",[status]\n" + ",[cid])\n" + "VALUES(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, bill.getBid());
@@ -86,8 +86,8 @@ public class DAOBill extends DBConnect {
     public int removeBillWithCascade(String bid) {
         // Remove a bill will remove all bill detail of that bill
         int n = 0;
-        String sql = "DELETE FROM [dbo].[BillDetail]\n" + "      WHERE [bid] = ?";
-        String billSql = "DELETE FROM [dbo].[Bill]\n" + "      WHERE [bid] = ?";
+        String sql = "DELETE FROM [dbo].[BillDetail] WHERE [bid] = ?";
+        String billSql = "DELETE FROM [dbo].[Bill] WHERE [bid] = ?";
 
         try {
             PreparedStatement pre = conn.prepareStatement(sql), preBill = conn.prepareStatement(billSql);
@@ -105,7 +105,7 @@ public class DAOBill extends DBConnect {
 
 
     public int updateBillStatus(String bid, String status) {
-        String sql = "UPDATE [dbo].[Bill]" + "   SET [status] = ?" + " WHERE [bid] = ?";
+        String sql = "UPDATE [dbo].[Bill] SET [status] = ? WHERE [bid] = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, status);

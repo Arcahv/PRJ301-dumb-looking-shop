@@ -25,6 +25,9 @@ public class DAOAdmin extends DBConnect {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, admin_name);
             pre.setString(2, password);
+            //A `PreparedStatement` is an object that represents a precompiled SQL statement in Java. It extends the `Statement` interface and can be used to efficiently execute a SQL statement multiple times with different parameters¹.
+            //When you create a `PreparedStatement`, you provide a SQL statement with placeholders for parameters. These placeholders are represented by question marks (`?`) in the SQL statement. You can then set the values for these parameters using the appropriate setter methods (e.g., `setInt`, `setString`, etc.) before executing the statement. This allows you to reuse the same `PreparedStatement` object to execute the same SQL statement multiple times with different parameter values¹.
+            //Using a `PreparedStatement` can improve performance and security compared to using a regular `Statement` object. Because the SQL statement is precompiled, it can be executed more efficiently. Additionally, using a `PreparedStatement` can help prevent SQL injection attacks because it automatically handles escaping special characters in parameter values¹.
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
                 return new Admin(rs.getString(2), rs.getString(1));
@@ -37,12 +40,16 @@ public class DAOAdmin extends DBConnect {
 
     public int addAdmin(Admin admin) {
         int n = 0;
-        String sql = "INSERT INTO [dbo].[admin]\n" + "           ([admin]\n" + "           ,[password])\n" + "     VALUES(?,?)";
+        //String sql = "INSERT INTO [dbo].[admin]\n" + "           ([admin]\n" + "           ,[password])\n" + "     VALUES(?,?)";
+        String sql = "Insert into admin(admin,password) values(?,?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, admin.getAdmin());
             pre.setString(2, admin.getPassword());
             n = pre.executeUpdate();
+            //A `PreparedStatement` is an object that represents a precompiled SQL statement in Java. It extends the `Statement` interface and can be used to efficiently execute a SQL statement multiple times with different parameters¹.
+            //When you create a `PreparedStatement`, you provide a SQL statement with placeholders for parameters. These placeholders are represented by question marks (`?`) in the SQL statement. You can then set the values for these parameters using the appropriate setter methods (e.g., `setInt`, `setString`, etc.) before executing the statement. This allows you to reuse the same `PreparedStatement` object to execute the same SQL statement multiple times with different parameter values¹.
+            //Using a `PreparedStatement` can improve performance and security compared to using a regular `Statement` object. Because the SQL statement is precompiled, it can be executed more efficiently. Additionally, using a `PreparedStatement` can help prevent SQL injection attacks because it automatically handles escaping special characters in parameter values¹.
         } catch (SQLException ex) {
             Logger.getLogger(DAOAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
