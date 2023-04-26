@@ -10,12 +10,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <%if (request.getSession().getAttribute("admin") != null) {%>
+                <li class="navbar-brand">
+                    <a href="admin" class="nav-pills" style="color: white">ADMIN HOME <br></a>
+                </li>
+                <%} else if (request.getSession().getAttribute("customer") != null) {%>
                 <li class="navbar-brand">
                     <a href="home" class="nav-pills" style="color: white">HOME <br></a>
                 </li>
+                <%}%>
                 <%if (request.getSession().getAttribute("customer") != null) {%>
                 <li class="nav-item mt-2">
-                    <a class="nav-link" style="color: white" href="${pageContext.request.contextPath}/bill?action=view-bill">
+                    <a class="nav-link" style="color: white"
+                       href="${pageContext.request.contextPath}/bill?action=view-bill">
                         Welcome:<%=(request.getSession().getAttribute("customer") != null) ? ((Customer)request.getSession().getAttribute("customer")).getCname() : ""%>
                     </a>
                 </li>

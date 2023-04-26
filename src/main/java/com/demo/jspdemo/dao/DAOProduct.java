@@ -18,7 +18,9 @@ public class DAOProduct extends DBConnect {
 
     public int addProductByPre(Product product) {
         int n = 0;
-        String sql = "INSERT INTO [dbo].[Product]" + "([pid]" + ",[pname]" + ",[quantity]" + ",[price]" + ",[image]" + ",[description]" + ",[status]" + ",[cateID])" + "VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "";
+        sql = "INSERT INTO Product(pid, pname, quantity, price, image, description, status, cateID) VALUES (?,?,?,?,?,?,?,?)";
+        //String sql = "INSERT INTO [dbo].[Product]" + "([pid]" + ",[pname]" + ",[quantity]" + ",[price]" + ",[image]" + ",[description]" + ",[status]" + ",[cateID])" + "VALUES(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, product.getPid());
@@ -38,7 +40,8 @@ public class DAOProduct extends DBConnect {
 
     public int updateProduct(Product product) {
         int n = 0;
-        String sql = "UPDATE [dbo].[Product]" + "   SET [pname] = ?" + "      ,[quantity] = ?" + "      ,[price] = ?" + "      ,[image] = ?" + "      ,[description] = ?" + "      ,[status] = ?" + "      ,[cateID] = ?" + " WHERE [pid] = ?";
+        String sql = "UPDATE Product SET pname = ?, quantity = ?, price = ?, image = ?, description = ?, status = ?, cateID = ? WHERE pid = ?";
+        //String sql = "UPDATE [dbo].[Product]" + "   SET [pname] = ?" + "      ,[quantity] = ?" + "      ,[price] = ?" + "      ,[image] = ?" + "      ,[description] = ?" + "      ,[status] = ?" + "      ,[cateID] = ?" + " WHERE [pid] = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, product.getPname());
@@ -117,8 +120,8 @@ public class DAOProduct extends DBConnect {
 
     public int removeProductWithCascade(String id) {
         int n = 0;
-        String sql2 = "DELETE FROM [dbo].[Product]" + "      WHERE [pid] = ?";
-        String sql1 = "DELETE FROM [dbo].[BillDetail]" + "      WHERE [pid] = ?";
+        String sql2 = "DELETE FROM [dbo].[Product] WHERE [pid] = ?";
+        String sql1 = "DELETE FROM [dbo].[BillDetail] WHERE [pid] = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql1);
             PreparedStatement pre2 = conn.prepareStatement(sql2);

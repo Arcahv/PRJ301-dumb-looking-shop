@@ -60,8 +60,6 @@ public class DAOCategory extends DBConnect {
     public void displayAll() {
         String sql = "select * from Category";
         try {
-            //default: con tro chi di xuong
-            //read: chi doc khong sua
             Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = state.executeQuery(sql);
             while (rs.next()) {
@@ -72,8 +70,6 @@ public class DAOCategory extends DBConnect {
                 Category cat = new Category(cateid, name, status);
                 System.out.println(cat);
             }
-            // scroll sens: con tro 2 chieu
-            //sensitive: thread safe
         } catch (SQLException ex) {
             Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }

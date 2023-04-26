@@ -27,7 +27,7 @@
 <div class="container my-3">
     <div class="row">
         <div class="col-md-6 mx-auto">
-            <h1 class="text-center mb-4">Add Product</h1>
+            <h1 class="text-center mb-4">Update Product</h1>
             <form method="POST" action="admin">
                 <input type="hidden" name="action" value="update-product">
                 <input type="hidden" name="pid" value="<%=product.getPid()%>">

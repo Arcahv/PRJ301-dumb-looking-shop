@@ -38,7 +38,7 @@ public class DAOCustomer extends DBConnect {
         return null;
     }
 
-    public int addCustomer(Customer customer) {
+    public void addCustomer(Customer customer) {
         //CREATE TABLE Customer
         //(
         //    cid varchar(32) PRIMARY KEY,
@@ -49,8 +49,8 @@ public class DAOCustomer extends DBConnect {
         //    phone varchar(20),
         //    status int,
         //)
-        int n = 0;
-        String sql = "INSERT INTO [Customer]" + "           ([cid]" + "           ,[cname]" + "           ,[username]" + "           ,[password]" + "           ,[address]" + "           ,[phone]" + "           ,[status])" + "     VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO " + "Customer" + " ([cid],[cname],[username],[password],[address],[phone],[status])" + " VALUES(?,?,?,?,?,?,?)";
+        //String sql = "INSERT INTO [Customer]" + "           ([cid]" + "           ,[cname]" + "           ,[username]" + "           ,[password]" + "           ,[address]" + "           ,[phone]" + "           ,[status])" + "     VALUES(?,?,?,?,?,?,?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
 
@@ -61,16 +61,17 @@ public class DAOCustomer extends DBConnect {
             pre.setString(5, customer.getAddress());
             pre.setString(6, customer.getPhone());
             pre.setInt(7, customer.getStatus());
-            n = pre.executeUpdate();
+            pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return n;
     }
 
     public int updateCustomer(Customer customer) {
         int n = 0;
-        String sql = "UPDATE [dbo].[Customer]" + "   SET [cname] = ?" + "      ,[username] = ?" + "      ,[password] = ?" + "      ,[address] = ?" + "      ,[status] = ?" + "      ,[phone] = ?" + " WHERE [cid] = ?";
+        String sql = "UPDATE " + "Customer" + " SET [cname] = ?, [username] = ?, [password] = ?, [address] = ?, [status] = ?, [phone] = ? WHERE [cid] = ?";
+
+        //String sql = "UPDATE [dbo].[Customer]" + "   SET [cname] = ?" + "      ,[username] = ?" + "      ,[password] = ?" + "      ,[address] = ?" + "      ,[status] = ?" + "      ,[phone] = ?" + " WHERE [cid] = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, customer.getCname());
@@ -145,22 +146,20 @@ public class DAOCustomer extends DBConnect {
         return false;
     }
 
-    public int removeCustomerWithCascade(String id) {
-        int n = 0;
+    public void removeCustomerWithCascade(String id) {
         DAOBill daoBill = new DAOBill();
         Vector<Bill> bills = daoBill.getAllBill("select * from Bill where cid = '" + id + "'");
         for (Bill bill : bills) {
-            n += daoBill.removeBillWithCascade(bill.getBid());
+            daoBill.removeBillWithCascade(bill.getBid());
         }
         String sql = "delete from Customer where cid = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, id);
-            n += pre.executeUpdate();
+            pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return n;
     }
 
 
